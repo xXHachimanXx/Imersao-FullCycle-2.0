@@ -12,6 +12,13 @@ type KafkaConsumer struct {
 	MsgChan chan *ckafka.Message
 }
 
+// NewKafkaConsumer creates a new KafkaConsumer struct with its message channel as dependency
+func NewKafkaConsumer(msgChan chan *ckafka.Message) *KafkaConsumer {
+	return &KafkaConsumer{
+		MsgChan: msgChan,
+	}
+}
+
 func (k *KafkaConsumer) Consume() {
 	configMap := &ckafka.ConfigMap{
 		"bootstrap.servers": os.Getenv("KafkaBootstrapServers"),
