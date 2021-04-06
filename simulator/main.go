@@ -5,7 +5,9 @@ import (
 	"log"
 
 	"github.com/joho/godotenv"
-	"github.com/xXHachimanXx/Imersao-FullCycle-2.0/application/route"
+
+	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
+	kafka "github.com/xXHachimanXx/Imersao-FullCycle-2.0/infra/kafka"
 )
 
 func init() {
@@ -16,12 +18,19 @@ func init() {
 }
 
 func main() {
-	route := route.Route{
-		ID:       "1",
-		ClientID: "1",
-	}
+	msgChan := make(chan *ckafka.Message)
+	consumer := kafka.NewKafkaConsumer(msgChan)
+	go consumer.Consume()
 
-	route.LoadPositions()
-	stringJson, _ := route.ExportJsonPositions()
-	fmt.Println(stringJson[1])
+	for msg := range msgChan {
+		fmt.Println(string(msg.Value))
+	}
+	// route := route.Route{
+	// 	ID:       "1",
+	// 	ClientID: "1",
+	// }
+
+	// route.LoadPositions()
+	// stringJson, _ := route.ExportJsonPositions()
+	// fmt.Println(stringJson[1])
 }
