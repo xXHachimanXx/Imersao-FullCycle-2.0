@@ -4,5 +4,8 @@ services:
     app:
         build: .
         container_name: simulator
+        ports: 
+            - 8000:8000
+            - 3333:3333
         volumes:
             - .:/go/src
