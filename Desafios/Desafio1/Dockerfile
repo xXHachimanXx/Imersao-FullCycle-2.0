@@ -1,9 +1,15 @@
-FROM golang:1.16
+FROM golang:1.15-alpine3.13 AS build
 
 WORKDIR /go/src
+COPY . .
 ENV PATH="/go/bin:${PATH}"
 
-RUN apt-get update
+EXPOSE 8000
 
-CMD ["tail", "-f", "/dev/null"]
+RUN GOOS=linux go build main.go
+
+CMD [ "./main" ]
+
+
+
 
