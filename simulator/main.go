@@ -7,6 +7,7 @@ import (
 	"github.com/joho/godotenv"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
+	kafka2 "github.com/xXHachimanXx/Imersao-FullCycle-2.0/application/kafka"
 	kafka "github.com/xXHachimanXx/Imersao-FullCycle-2.0/infra/kafka"
 )
 
@@ -23,6 +24,7 @@ func main() {
 	go consumer.Consume()
 
 	for msg := range msgChan {
+		go kafka2.Produce(msg)
 		fmt.Println(string(msg.Value))
 	}
 	// route := route.Route{

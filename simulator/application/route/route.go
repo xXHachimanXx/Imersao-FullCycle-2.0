@@ -30,6 +30,11 @@ type PartialRoutePosition struct {
 	Finished bool      `json:"finished"`
 }
 
+// NewRoute creates a *Route struct
+func NewRoute() *Route {
+	return &Route{}
+}
+
 // LoadPositions loads from a .txt file all positions (lat and long) to the Position attribute of the struct
 func (r *Route) LoadPositions() error {
 
