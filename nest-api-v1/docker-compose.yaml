@@ -13,19 +13,19 @@ services:
       - db
   
   db:
-    image: mongo
+    image: mongo:4.4.4
+    restart: unless-stopped
     volumes:
-      - ./.docker/dbdata:/data/db
+      - ./.docker/dump:/data/dump
       - ./.docker/mongo:/docker-entrypoint-initdb.d
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
       - MONGO_INITDB_DATABASE=nest
-    ports:
-      - "27017:27017"
   
   mongo-express:
     image: mongo-express
+    restart: unless-stopped
     ports:
       - 8081:8081
     environment:
