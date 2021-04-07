@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { RoutesModule } from './routes/routes.module';
 
 @Module({
-  imports: [RoutesModule],
+  imports: [RoutesModule, MongooseModule.forRoot(process.env.MONGO_DSN)],
   controllers: [AppController],
   providers: [AppService],
 })
